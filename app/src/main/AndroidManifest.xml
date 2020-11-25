@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CourseTable">
-        <activity android:name=".ui.AddCourseActivity"></activity>
+        <activity android:name=".ui.AddCourseActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:launchMode="singleTask"
+            >
+        </activity>
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

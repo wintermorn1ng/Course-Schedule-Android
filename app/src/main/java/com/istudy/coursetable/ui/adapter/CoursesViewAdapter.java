@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,11 +21,12 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView courseName;
         TextView classroom;
-
+        LinearLayout linearLayout;
         public ViewHolder(View view){
             super(view);
             courseName =view.findViewById(R.id.course_name);
             classroom =view.findViewById(R.id.classroom);
+            linearLayout = view.findViewById(R.id.main_linear);
         }
     }
 
@@ -50,7 +52,7 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
 
         holder.courseName.setText(course.getCourseName());
         holder.classroom.setText(course.getClassroom());
-
+        holder.linearLayout.setBackgroundColor(0xFF03DAC5);
         //if(course.getClassroom()!=null)
             //holder.classroom.setText(course.getClassroom());
         //else holder.classroom.setText("");
