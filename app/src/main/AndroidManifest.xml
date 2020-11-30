@@ -11,7 +11,7 @@
         android:theme="@style/Theme.CourseTable">
         <activity android:name=".ui.AddCourseActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             >
         </activity>
         <activity android:name=".ui.MainActivity">

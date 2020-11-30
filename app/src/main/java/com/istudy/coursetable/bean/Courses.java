@@ -5,8 +5,17 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class Courses {
-    private int days;
+    private int days = 0;
+    private int maxOrder = 0;
     ArrayList<Course> courseList;
+
+    public int getDays() {
+        return days;
+    }
+
+    public int getMaxOrder() {
+        return maxOrder;
+    }
 
     public Courses(int days, ArrayList<Course> courseList) {
         this.days = days;
@@ -15,12 +24,15 @@ public class Courses {
 
     public Courses(int days) {
         this.days = days;
-        courseList = new ArrayList<Course>();
+        courseList = new ArrayList<>();
     }
 
     public void addCourse(Course course){
+        days = Math.max(course.getDay(),days);
+        maxOrder = Math.max(course.getOrder(),maxOrder);
         courseList.add(course);
     }
+
     public Course get(int pos){
         int col,row;
         row = (pos+days)/days;
@@ -32,7 +44,7 @@ public class Courses {
         return null;
     }
     public int size(){
-        return days*4;
+        return days*maxOrder;
     }
 
     @Override

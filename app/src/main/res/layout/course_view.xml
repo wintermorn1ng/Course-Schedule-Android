@@ -12,10 +12,12 @@
         android:layout_height="70dp"
         android:id="@+id/course_name"
         android:gravity="center"
+        android:textColor="@color/white"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:id="@+id/classroom"
+        android:textColor="@color/white"
         android:gravity="center"/>
 </LinearLayout>

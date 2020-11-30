@@ -52,14 +52,18 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
 
         holder.courseName.setText(course.getCourseName());
         holder.classroom.setText(course.getClassroom());
-        holder.linearLayout.setBackgroundColor(0xFF03DAC5);
-        //if(course.getClassroom()!=null)
-            //holder.classroom.setText(course.getClassroom());
-        //else holder.classroom.setText("");
+        holder.linearLayout.setBackgroundColor(0xFF6200EE);
     }
 
     @Override
     public int getItemCount() {
         return mCourses.size();
+    }
+
+    public void addItem(Course course){
+        mCourses.addCourse(course);
+        int position = (course.getOrder()-1)*mCourses.getDays()+course.getDay()-1;
+        //notifyItemInserted(position);
+        notifyItemChanged(position);
     }
 }

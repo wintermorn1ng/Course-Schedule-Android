@@ -7,16 +7,20 @@
     android:orientation="vertical"
     >
     <EditText
+        android:id="@+id/course_name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:hint="请输入课程名"
+        android:inputType="text"
         />
     <EditText
+        android:id="@+id/classroom_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:hint="请输入教室"
+        android:inputType="text"
         />
     <LinearLayout
         android:layout_width="match_parent"

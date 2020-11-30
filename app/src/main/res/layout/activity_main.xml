@@ -8,7 +8,8 @@
     <com.istudy.coursetable.ui.view.CoursesView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/course_view"/>
+        android:id="@+id/course_view"
+        />
     <Button
         android:id="@+id/add_course_btn"
         android:layout_width="wrap_content"

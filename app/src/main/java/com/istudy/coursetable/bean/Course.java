@@ -75,4 +75,15 @@ public class Course {
     public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "day=" + day +
+                ", order=" + order +
+                ", courseName='" + courseName + '\'' +
+                ", classroom='" + classroom + '\'' +
+                ", teacher='" + teacher + '\'' +
+                '}';
+    }
 }
