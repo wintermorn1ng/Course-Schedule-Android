@@ -18,10 +18,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     @BindView(R.id.course_view) CoursesView coursesView;
     @BindView(R.id.add_course_btn) Button addCourseBtn;
+    @BindView(R.id.get_course_btn) Button getCourseBtn;
     private CoursesViewAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +36,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);         //绑定主布局
         setTitle("课表");
-
+        //test();
         getData();
         initCoursesView();
-        mAdapter.addItem(new Course(2,1,"hahah"));
+//        mAdapter.addItem(new Course(2,1,"hahah"));
         addCourseBtn.setOnClickListener(v-> AddCourseActivity.activityStart(this));
+        getCourseBtn.setOnClickListener(v->CourseGetterActivity.activityStart(this));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG,"???");
+        Log.d(TAG,"activity result");
         switch (requestCode){
             case 1:
                 if(resultCode==RESULT_OK){
                     String str = data.getStringExtra("course");
                     Gson gson = new Gson();
                     Course course =  gson.fromJson(str,Course.class);
-                    if (course.getCourseName()==""||course.getClassroom()=="")return;
+                    if (Objects.equals(course.getCourseName(), "") || Objects.equals(course.getClassroom(), ""))return;
                     mAdapter.addItem(course);
                     //Log.d(TAG,course.toString());
+                }
+                break;
+            case 2:
+                if(resultCode==RESULT_OK){
+
                 }
                 break;
             default:
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String data = gson.toJson(initCourses());
         SharedPreferencesHelper.getInstance().init(this);
+        SharedPreferencesHelper.getInstance().putCourses(gson.toJson(initCourses()));
         Log.d(TAG,data);
     }
 

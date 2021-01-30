@@ -1,11 +1,9 @@
 package com.istudy.coursetable.db;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.annotation.StringDef;
-
-import com.istudy.coursetable.bean.Courses;
 
 public class SharedPreferencesHelper {
     private SharedPreferences preferences;
@@ -17,6 +15,7 @@ public class SharedPreferencesHelper {
         return instance;
     }
 
+    @SuppressLint("CommitPrefEdits")
     public void init(Context context){
         preferences =  context.getSharedPreferences("course",Context.MODE_PRIVATE);
         editor = preferences.edit();

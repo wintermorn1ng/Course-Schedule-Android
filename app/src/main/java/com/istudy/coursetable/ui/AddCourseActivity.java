@@ -41,9 +41,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
         initNp();
 
-        cancelBtn.setOnClickListener(v -> {
-            finish();
-        });
+        cancelBtn.setOnClickListener(v -> finish());
 
         confirmBtn.setOnClickListener(v->{
             int day = dayNp.getValue();
@@ -74,7 +72,6 @@ public class AddCourseActivity extends AppCompatActivity {
 
     /**
      * 启动活动的静态方法
-     * @param context
      */
     public static void activityStart(Activity context){
         Intent intent = new Intent(context,AddCourseActivity.class);
