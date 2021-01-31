@@ -22,8 +22,7 @@ public class Courses {
         this.courseList = courseList;
     }
 
-    public Courses(int days) {
-        this.days = days;
+    public Courses() {
         courseList = new ArrayList<>();
     }
 

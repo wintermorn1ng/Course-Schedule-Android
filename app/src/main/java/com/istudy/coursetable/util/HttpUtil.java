@@ -9,6 +9,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Random;
@@ -47,7 +48,12 @@ public class HttpUtil extends OkhttpUtil {
            .map(new Function<Object, Bitmap>() {
                @Override
                public Bitmap apply(Object o) throws Throwable {
-                   return getCaptcha();
+                   try {
+                       return getCaptcha();
+                   }
+                   catch (SocketTimeoutException e){
+                       return null;
+                   }
                }
            })
                 .subscribeOn(Schedulers.io())
@@ -55,23 +61,25 @@ public class HttpUtil extends OkhttpUtil {
            .subscribe(new Observer<Bitmap>() {
                @Override
                public void onSubscribe(@NonNull Disposable d) {
+                   context.showLoading("正在加载验证码");
                }
 
                @Override
                public void onNext(@NonNull Bitmap bitmap) {
-                   Log.d(TAG,"rx ok");
-                   context.updateImg(bitmap);
+                       context.updateImg(bitmap);
                }
 
                @Override
                public void onError(@NonNull Throwable e) {
                    Log.d(TAG,"network err");
                    e.printStackTrace();
+                   context.hideLoading();
+                   context.showMessage("网络错误！");
                }
 
                @Override
                public void onComplete() {
-                   Log.d(TAG,"rx over");
+                   context.hideLoading();
                }
            });
     }
@@ -82,7 +90,6 @@ public class HttpUtil extends OkhttpUtil {
                 @Override
                 public Boolean apply(Object s) throws Throwable {
                     boolean res = checkCaptcha(captcha);
-                    if(!res)context.showMessage("验证码错误");
                     return res;
                 }
             })
@@ -105,29 +112,36 @@ public class HttpUtil extends OkhttpUtil {
             .subscribe(new Observer<String>() {
                 @Override
                 public void onSubscribe(@NonNull Disposable d) {
-
+                    context.showLoading("正在获取课表");
                 }
 
                 @Override
                 public void onNext(@NonNull String s) {
                     if(s.equals("__false__")){
-                        context.showMessage("请求失败，请重试");
+                        context.showMessage("请求失败，请检查学号，密码，验证码后重试");
+                        context.hideLoading();
+                        context.refreshCaptcha();
                     }
-                    Logger.d(s);
+                    else {
+                        Logger.d(s);
+                        context.processData(s);
+                    }
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
                     Log.d(TAG,"network err");
                     e.printStackTrace();
+                    context.hideLoading();
                 }
 
                 @Override
                 public void onComplete() {
-                    context.showMessage("获取课表成功");
+                    context.hideLoading();
                 }
             });
     }
+
 
 
     private Bitmap getCaptcha() throws IOException {

@@ -4,23 +4,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="第"
+            android:textSize="25sp"
+            android:gravity="center"
+            />
+        <nl.dionsegijn.steppertouch.StepperTouch
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:id="@+id/stepperTouch"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="周"
+            android:textSize="25sp"
+            android:gravity="center"
+            />
+    </LinearLayout>
     <com.istudy.coursetable.ui.view.CoursesView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/course_view"
         />
-    <Button
-        android:id="@+id/add_course_btn"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="添加课程">
-    </Button>
-    <Button
-        android:id="@+id/get_course_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="获取课表"
-        />
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/add_course_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加课程"
+            >
+        </Button>
+        <Button
+            android:id="@+id/get_course_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取课表"
+            android:layout_marginLeft="10dp"
+            />
+    </LinearLayout>
 </LinearLayout>

@@ -8,16 +8,23 @@ public class Course {
     private String classroom;
     private String teacher;
 
+    public Course() {
+    }
+
     /**
      *
      * @param day 上课天
      * @param order 节次
      * @param courseName 课程名
      */
-    public Course(int day, int order, String courseName) {
+
+
+
+    public Course(int day, int order, String courseName,String classroom) {
         this.day = day;
         this.order = order;
         this.courseName = courseName;
+        this.classroom = classroom;
     }
 
     /**
