@@ -13,12 +13,12 @@
         android:theme="@style/Theme.CourseTable">
         <activity android:name=".ui.CourseGetterActivity"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
+            android:theme="@style/DialogTheme">
         </activity>
         <activity
             android:name=".ui.AddCourseActivity"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert">
+            android:theme="@style/DialogTheme">
         </activity>
         <activity android:name=".ui.MainActivity">
             <intent-filter>

@@ -1,74 +1,122 @@
 package com.istudy.coursetable.ui;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.istudy.coursetable.R;
 import com.istudy.coursetable.bean.Course;
-import com.istudy.coursetable.bean.CourseInfo;
-import com.istudy.coursetable.bean.CourseInfos;
 import com.istudy.coursetable.bean.Courses;
 import com.istudy.coursetable.db.CourseRep;
 import com.istudy.coursetable.db.SharedPreferencesHelper;
 import com.istudy.coursetable.ui.adapter.CoursesViewAdapter;
+import com.istudy.coursetable.ui.adapter.OnRecycleItemTouchListener;
 import com.istudy.coursetable.ui.view.CoursesView;
 import com.istudy.coursetable.util.CourseInfos2CourseWeek;
 import com.istudy.coursetable.util.GsonUtil;
 
+import androidx.annotation.MenuRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-import butterknife.Action;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import nl.dionsegijn.steppertouch.OnStepCallback;
-import nl.dionsegijn.steppertouch.StepperTouch;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     @BindView(R.id.course_view) CoursesView coursesView;
-    @BindView(R.id.add_course_btn) Button addCourseBtn;
-    @BindView(R.id.get_course_btn) Button getCourseBtn;
-    @BindView(R.id.stepperTouch) StepperTouch stepperTouch;
+    //@BindView(R.id.stepperTouch) StepperTouch stepperTouch;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.week_sp)
+    Spinner weekSp;
     private CoursesViewAdapter mAdapter;
+    private PopupMenu popupMenu;
+    private int now;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);         //绑定主布局
-
-
         setTitle("课表");
         initActivity();
-        //test();
-//        mAdapter.addItem(new Course(2,1,"hahah"));
     }
-
     private void initActivity(){
         getData();
-        int now = SharedPreferencesHelper.getInstance().getNowWeek();
-        stepperTouch.setCount(now);
-        refreshCoursesView(now);
         SharedPreferencesHelper.getInstance().setNowWeek(5);
-        addCourseBtn.setOnClickListener(v-> AddCourseActivity.activityStart(this));
-        getCourseBtn.setOnClickListener(v->CourseGetterActivity.activityStart(this));
-        stepperTouch.setMinValue(1);
-        stepperTouch.setMaxValue(30);
-        stepperTouch.setSideTapEnabled(true);
-        stepperTouch.addStepCallback(new OnStepCallback() {
+        now = SharedPreferencesHelper.getInstance().getNowWeek();
+
+        ArrayList lists = new ArrayList<String>();
+        for(int i=1;i<=30;i++)lists.add("第"+i+"周");
+        SpinnerAdapter adapter = new ArrayAdapter(this,R.layout.list_item,lists);
+        weekSp.setAdapter(adapter);
+        weekSp.setSelection(now-1);
+        weekSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onStep(int value, boolean positive) {
-                refreshCoursesView(value);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                refreshCoursesView(position+1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+
+        fab.setOnClickListener(v-> showMenu(v,R.menu.popup_menu));
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                fab.hide();
+                return true;
+            }
+        });
+    }
+
+    private void showMenu(View v, @MenuRes int menuRes){
+        if(popupMenu==null){
+            popupMenu = new PopupMenu(this,v);
+            popupMenu.inflate(menuRes);
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.option_1:
+                            AddCourseActivity.activityStart(MainActivity.this);
+                            break;
+                        case R.id.option_2:
+                            CourseGetterActivity.activityStart(MainActivity.this);
+                            break;
+                    }
+                    return true;
+                }
+            });
+            popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+                @Override
+                public void onDismiss(PopupMenu menu) {
+
+                }
+            });
+        }
+        popupMenu.show();
     }
 
     @Override
@@ -80,15 +128,20 @@ public class MainActivity extends AppCompatActivity {
                 if(resultCode==RESULT_OK){
                     try {
                         String str = data.getStringExtra("course");
+                        Log.d("debug",str);
                         Course course =  GsonUtil.gson.fromJson(str,Course.class);
                         if (Objects.equals(course.getCourseName(), "") || Objects.equals(course.getClassroom(), ""))return;
                         mAdapter.addItem(course);
+                        course.week = now;
+                        course.setColor(R.attr.colorPrimary);
+                        course.isUser=true;
+                        CourseRep.add(course);
+                        SharedPreferencesHelper.getInstance().putUserCourses(GsonUtil.gson.toJson(CourseRep.userCourses));
                     }
                     catch (NullPointerException e){
                         showMessage("添加课程失败");
+                        e.printStackTrace();
                     }
-
-                    //Log.d(TAG,course.toString());
                 }
                 break;
             case 2:
@@ -98,13 +151,11 @@ public class MainActivity extends AppCompatActivity {
                         if(courseInfo==null){
                             showMessage("返回了空课表！");
                         }
-                        Log.d("Main",courseInfo);
                         showMessage("获取成功!");
                         SharedPreferencesHelper.getInstance().putCourses(courseInfo);
                         CourseRep.courseWeek = CourseInfos2CourseWeek.prase(courseInfo);
-                        int now = SharedPreferencesHelper.getInstance().getNowWeek();
+                        now = SharedPreferencesHelper.getInstance().getNowWeek();
                         refreshCoursesView(now);
-                        stepperTouch.setCount(now);
                     }
                     catch (NullPointerException e){
                         showMessage("解析课表失败！");
@@ -151,8 +202,20 @@ public class MainActivity extends AppCompatActivity {
         );
         //coursesView.setLayoutManager(new GridLayoutManager(this,CourseRep.courses.getDays()));
         mAdapter = new CoursesViewAdapter(CourseRep.courseWeek.getCourses(now));
+        for(int i=0;i<CourseRep.userCourses.size();i++){
+            if(CourseRep.userCourses.get(i).week==now){
+                mAdapter.addUserCourse(CourseRep.userCourses.get(i));
+            }
+        }
         coursesView.setItemAnimator(new DefaultItemAnimator());
         coursesView.setAdapter(mAdapter);
+        coursesView.addOnItemTouchListener(new OnRecycleItemTouchListener(coursesView){
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder vh, int position) {
+                super.onItemClick(vh, position);
+
+            }
+        });
         //mAdapter.addItem(new Course(3,1,"测试"));
     }
 
@@ -169,6 +232,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferencesHelper.getInstance().init(this);
         if(SharedPreferencesHelper.getInstance().getCourses()!=null){
             CourseRep.courseWeek = CourseInfos2CourseWeek.prase(SharedPreferencesHelper.getInstance().getCourses());
+        }
+        if(SharedPreferencesHelper.getInstance().getUserCourses()!=null){
+            CourseRep.userCourses = GsonUtil.gson.fromJson(SharedPreferencesHelper.getInstance().getUserCourses(), Courses.class);
+            Log.d("debug","??????");
+        }
+        else{
+            CourseRep.userCourses = new Courses();
         }
     }
 

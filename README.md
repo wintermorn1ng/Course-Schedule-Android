@@ -16,8 +16,9 @@
 5. Jsoup
 6. Stepper-Touch
 # TODO
-- [ ] 自定义课程的删除与管理
+- [ ] 自定义课程的删除与管理(长按删除)
 - [ ] 美化ui
+- [ ] 显示学期
 # 自定义视图
 尝试创建 CourseView 和CoursesView ，前者提供单格的布局，后者提供整体布局并且负责相应的信息处理。
 传入 周课表(CoursesWeek) 对象。

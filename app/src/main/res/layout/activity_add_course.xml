@@ -3,29 +3,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.AddCourseActivity"
-    android:orientation="vertical"
-    >
-    <EditText
-        android:id="@+id/course_name_et"
+    android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="第"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:text="周"
+                android:textSize="20sp"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/course_name_ty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:hint="请输入课程名"
-        android:inputType="text"
-        />
-    <EditText
-        android:id="@+id/classroom_et"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        app:endIconMode="clear_text"
+        app:helperTextEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/course_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="课程名"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:hint="请输入教室"
-        android:inputType="text"
-        />
+        app:endIconMode="clear_text"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/classroom_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="教室"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:gravity="center"
         >
         <NumberPicker
@@ -49,18 +93,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="right"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         >
-        <Button
-            android:id="@+id/confirm_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="确定" />
         <Button
             android:id="@+id/cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="取消"/>
+            android:text="取消"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+            />
+        <Button
+            android:id="@+id/confirm_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+            android:text="确定"
+            />
     </LinearLayout>
 </LinearLayout>

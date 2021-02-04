@@ -27,16 +27,20 @@ public class SharedPreferencesHelper {
     }
 
     public void putUserCourses(String data){
-        editor.putString("user_courses","test");
+        editor.putString("user_courses",data);
         editor.commit();
     }
 
     public String getCourses(){
-        return  preferences.getString("courses","null");
+        if(preferences.contains("courses"))
+            return  preferences.getString("courses","null");
+        else return null;
     }
 
     public String getUserCourses(){
-        return preferences.getString("user_courses","null");
+        if(preferences.contains("user_courses"))
+            return preferences.getString("user_courses","null");
+        else return null;
     }
 
     public void setNowWeek(int val){

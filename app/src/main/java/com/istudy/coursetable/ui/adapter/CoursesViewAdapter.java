@@ -1,15 +1,14 @@
 package com.istudy.coursetable.ui.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.istudy.coursetable.R;
 import com.istudy.coursetable.bean.Course;
 import com.istudy.coursetable.bean.Courses;
@@ -21,12 +20,12 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView courseName;
         TextView classroom;
-        LinearLayout linearLayout;
+        MaterialCardView materialCardView;
         public ViewHolder(View view){
             super(view);
             courseName =view.findViewById(R.id.course_name);
             classroom =view.findViewById(R.id.classroom);
-            linearLayout = view.findViewById(R.id.main_linear);
+            materialCardView = view.findViewById(R.id.main_cv);
         }
     }
 
@@ -44,15 +43,20 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Course course = mCourses.get(position);
-        //Log.d("debug",position+"");
-        if(course==null)return;
+        if(course==null){
+            holder.materialCardView.setCardBackgroundColor(0xFFEEEEEE);
+            holder.materialCardView.setClickable(false);
+            holder.courseName.setText(null);
+            holder.classroom.setText(null);
+            return;
+        }
         //Log.d("debug",course.getCourseName()+" "+course.getClassroom());
 
         holder.courseName.setText(course.getCourseName());
         holder.classroom.setText(course.getClassroom());
-        holder.linearLayout.setBackgroundColor(0xFF6200EE);
+        holder.materialCardView.setCardBackgroundColor(course.getColor());
+        holder.materialCardView.setClickable(true);
     }
 
     @Override
@@ -64,6 +68,10 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
         mCourses.addCourse(course);
         int position = (course.getOrder()-1)*mCourses.getDays()+course.getDay()-1;
         //notifyItemInserted(position);
-        notifyItemChanged(position);
+        notifyItemChanged(position,course);
+    }
+
+    public void addUserCourse(Course course){
+        mCourses.addCourse(course);
     }
 }

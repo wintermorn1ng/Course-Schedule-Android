@@ -7,7 +7,9 @@ public class Course {
     private String courseName;
     private String classroom;
     private String teacher;
-
+    private int color;
+    public int week;
+    public boolean isUser;
     public Course() {
     }
 
@@ -81,6 +83,14 @@ public class Course {
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     @Override

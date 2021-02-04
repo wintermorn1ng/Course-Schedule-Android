@@ -50,7 +50,7 @@ public class HTML2CourseRepUtil {
             if(tds.size()<9)continue;
             CourseInfo course = new CourseInfo();
             if(tds.get(5).text().trim().equals("任选"))continue;
-            course.setName(tds.get(2).text().trim().replace("（","(").replace("）",")"));
+            course.setName(tds.get(2).text().trim().replace("（","\n(").replace("）",")"));
             course.setTeacher(tds.get(3).text().trim());
             course.setCredit(tds.get(4).text().trim());
             course.setExamType(tds.get(6).text().trim());
