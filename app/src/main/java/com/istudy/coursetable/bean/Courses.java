@@ -29,7 +29,10 @@ public class Courses {
     public void addCourse(Course course){
         days = Math.max(course.getDay(),days);
         maxOrder = Math.max(course.getOrder(),maxOrder);
-        courseList.add(course);
+        courseList.add(0,course);
+    }
+    public void removeCourse(Course course){
+        courseList.remove(course);
     }
 
     public Course get(int pos){
@@ -53,5 +56,11 @@ public class Courses {
             res.append(courseList.get(i).getCourseName()).append(" ").append(courseList.get(i).getClassroom()).append(";");
         }
         return res.toString();
+    }
+    public Course getList(int pos){
+        return courseList.get(pos);
+    }
+    public int getListSize(){
+        return courseList.size();
     }
 }

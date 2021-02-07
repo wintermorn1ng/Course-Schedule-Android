@@ -52,4 +52,8 @@ public class SharedPreferencesHelper {
         return preferences.getInt("now_week",0);
     }
 
+    public void clearCustomCourse(){
+        editor.putString("user_courses",null);
+        editor.commit();
+    }
 }

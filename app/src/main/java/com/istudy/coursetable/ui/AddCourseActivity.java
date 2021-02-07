@@ -9,6 +9,7 @@ import com.istudy.coursetable.bean.Course;
 import com.istudy.coursetable.util.GsonUtil;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,7 +19,10 @@ import android.widget.NumberPicker;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@Deprecated
 public class AddCourseActivity extends AppCompatActivity {
+
+/*
     @BindView(R.id.confirm_btn)Button confirmBtn;
     @BindView(R.id.cancel_btn)Button cancelBtn;
     @BindView(R.id.day_np)NumberPicker dayNp;
@@ -32,7 +36,7 @@ public class AddCourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
-        setTitle(null);
+        setTitle("添加课程");
         ButterKnife.bind(this);
 
         initNp();
@@ -64,11 +68,14 @@ public class AddCourseActivity extends AppCompatActivity {
         orderNp.setMinValue(1);
     }
 
-    /**
+    */
+/**
      * 启动活动的静态方法
-     */
+     *//*
+
     public static void activityStart(Activity context){
         Intent intent = new Intent(context,AddCourseActivity.class);
         context.startActivityForResult(intent,1);
     }
+*/
 }

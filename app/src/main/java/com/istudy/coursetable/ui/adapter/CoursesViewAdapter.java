@@ -70,8 +70,17 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
         //notifyItemInserted(position);
         notifyItemChanged(position,course);
     }
+    public void removeItem(Course course){
+        int position = (course.getOrder()-1)*mCourses.getDays()+course.getDay()-1;
+        mCourses.removeCourse(course);
+        notifyItemChanged(position);
+    }
 
     public void addUserCourse(Course course){
         mCourses.addCourse(course);
+    }
+
+    public Course getCourse(int pos){
+        return mCourses.get(pos);
     }
 }

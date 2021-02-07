@@ -12,4 +12,7 @@ public class CourseRep {
     public static void add(Course course){
         userCourses.addCourse(course);
     }
+    public static void remove(Course course){
+        userCourses.removeCourse(course);
+    }
 }

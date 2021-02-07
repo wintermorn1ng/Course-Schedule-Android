@@ -34,11 +34,10 @@ public class HTML2CourseRepUtil {
     public static ArrayList<CourseInfo> parse(String data){
         Document doc = Jsoup.parse(data);
         Elements tables = doc.getElementsByTag("table");
+        if(tables==null)return null;
         if(tables.select(".infolist_tab")==null) return null;
         Element table = tables.select(".infolist_tab").get(0);
-        if(table==null){
-            return null;
-        }
+        if(table==null){ return null; }
 
 
         Elements trs = table.getElementsByClass("infolist_common");

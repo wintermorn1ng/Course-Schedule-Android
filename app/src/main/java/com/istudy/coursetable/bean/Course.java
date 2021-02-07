@@ -1,5 +1,7 @@
 package com.istudy.coursetable.bean;
 
+import java.util.ArrayList;
+
 public class Course {
     private int day;
     private int order;
@@ -7,6 +9,9 @@ public class Course {
     private String courseName;
     private String classroom;
     private String teacher;
+    private String credit;
+    private String examType;
+
     private int color;
     public int week;
     public boolean isUser;
@@ -91,6 +96,22 @@ public class Course {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public String getCredit() {
+        return credit;
+    }
+
+    public void setCredit(String credit) {
+        this.credit = credit;
+    }
+
+    public String getExamType() {
+        return examType;
+    }
+
+    public void setExamType(String examType) {
+        this.examType = examType;
     }
 
     @Override

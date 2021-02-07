@@ -2,28 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.istudy.coursetable">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.CourseTable">
-        <activity android:name=".ui.CourseGetterActivity"
-            android:launchMode="singleTop"
+        android:theme="@style/Theme.CourseTable"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.CourseGetterActivity"
+            android:launchMode="singleTask"
             android:theme="@style/DialogTheme">
         </activity>
         <activity
             android:name=".ui.AddCourseActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
+            android:theme="@style/DialogTheme">
+        </activity>
+        <activity android:name=".ui.ShowCourseInfoActivity"
+            android:launchMode="singleTask"
             android:theme="@style/DialogTheme">
         </activity>
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
