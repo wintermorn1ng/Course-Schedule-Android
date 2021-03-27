@@ -5,6 +5,7 @@ import com.istudy.coursetable.R;
 import com.istudy.coursetable.ui.fragment.HomeFlag;
 import com.istudy.coursetable.ui.fragment.SettingFrag;
 import com.istudy.coursetable.ui.fragment.TableFrag;
+import com.istudy.coursetable.ui.notification.AlarmHelper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +28,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    public static final String INTENT_ALARM_LOG = "intent_alarm_log";
 
     private TableFrag fragment1;
     private Fragment fragment2;
@@ -63,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // 不好使
+        /*
+        //new NotificationHelper().showNotification(this);
+        AlarmHelper alarmHelper = new AlarmHelper(MainActivity.this);
+
+        Intent intent = new Intent(INTENT_ALARM_LOG);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,0,intent,0);
+        //alarmHelper.setAlarm(18,56,0,pendingIntent);
+
+         */
     }
 
 
