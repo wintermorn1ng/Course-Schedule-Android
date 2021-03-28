@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <PreferenceCategory
+        app:key="theme_category"
+        android:title="主题(开发中，暂时不起作用)"
+        >
+        <Preference
+            app:title="选择主色调"
+            />
+        <Preference
+            app:title="选择强调色"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="提醒(开发中，暂时不起作用)"
+        >
+        <Preference
+            app:key="first_class"
+            app:title="第一节课上课时间"/>
+        <Preference
+            app:key="second_class"
+            app:title="第二节课上课时间"/>
+        <Preference
+            app:key="third_class"
+            app:title="第三节课上课时间"/>
+        <Preference
+            app:key="fourth_class"
+            app:title="第四节课上课时间"/>
+        <SwitchPreference
+            app:key="notification_switch"
+            app:title="开启上课提醒"
+            app:summary="上课时间设定完成才能开启提醒功能"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="存储">
+
+        <Preference
+            app:key="clear_custom_course"
+            app:title="清空自定义课表"
+            />
+        <!--
+        <Preference
+            app:key="clear_course"
+            app:title="清空获取课表"
+            />-->
+    </PreferenceCategory>
+</PreferenceScreen>
