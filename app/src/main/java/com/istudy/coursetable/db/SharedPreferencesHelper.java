@@ -43,13 +43,13 @@ public class SharedPreferencesHelper {
         else return null;
     }
 
-    public void setNowWeek(int val){
-        editor.putInt("now_week",val);
+    public void setNowWeek(String val){
+        editor.putString("now_week",val);
         editor.commit();
     }
 
-    public int getNowWeek(){
-        return preferences.getInt("now_week",0);
+    public String getNowWeek(){
+        return preferences.getString("now_week","");
     }
 
     public void clearCustomCourse(){

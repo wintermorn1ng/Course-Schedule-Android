@@ -71,4 +71,10 @@ public class HTML2CourseRepUtil {
         }
         return dataSet;
     }
+
+    public static int parseNow(String str){
+        Document document = Jsoup.parse(str);
+        Element option = document.select("option[selected]").get(0);
+        return  Integer.valueOf(option.val());
+    }
 }
