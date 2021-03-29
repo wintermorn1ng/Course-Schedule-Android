@@ -1,13 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
+android:layout_height="match_parent"
+android:background="@color/white"
+    android:orientation="vertical">
+
+    <!--
+    <ImageView
+        android:id="@+id/IMAGE_VIEW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+        -->
+
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@id/buttom_liner"
+    android:id="@+id/TABLE_LAYOUT_TAKE_PHOTO_LIST"
+    >
+
+
+</androidx.recyclerview.widget.RecyclerView>
+
+<!--
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="主页"
-        android:textSize="45sp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        />
-</LinearLayout>
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/scroll"
+        android:layout_above="@id/buttom_liner"
+        >
+        <TableLayout
+            android:id="@+id/TABLE_LAYOUT_TAKE_PHOTO_LIST"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_marginTop="8dp"
+            android:gravity="top" />
+    </ScrollView>
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/buttom_liner"
+        >
+
+        <Button
+            android:id="@+id/BUTTON_COMPLETE"
+            android:layout_height="48dp"
+            android:background="@color/red_500"
+            android:textColor="@color/white"
+            android:text="完成"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/BUTTON_TAKE_PHOTO"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="wrap_content" />
+
+        <Button
+            android:id="@+id/BUTTON_TAKE_PHOTO"
+            android:layout_width="68dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/grey_300"
+            android:text="拍照"
+            android:textColor="@color/white"
+            android:layout_marginStart="8dp"
+            />
+
+        <Button
+            android:id="@+id/BUTTON_ALBUM"
+            android:layout_width="68dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:background="@color/blue_700"
+            android:text="相册"
+            android:textColor="@color/white"
+            android:layout_marginStart="8dp"
+            />
+    </LinearLayout>
+</RelativeLayout>
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="主页"
+            android:textSize="45sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+    </LinearLayout>
+    -->

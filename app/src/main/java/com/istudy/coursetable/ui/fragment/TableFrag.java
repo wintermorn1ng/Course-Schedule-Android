@@ -210,7 +210,7 @@ public class TableFrag extends Fragment {
                 super.onItemClick(vh, position);
                 if(mAdapter.getCourse(position)!=null){
                     ShowCourseInfoFrag showCourseInfoFrag = new ShowCourseInfoFrag(mAdapter.getCourse(position));
-                    showCourseInfoFrag.show(getParentFragmentManager(),"tag");
+                    showCourseInfoFrag.show(getParentFragmentManager(),"tag"+position+10);
                     //showCourseInfoFrag.setData(mAdapter.getCourse(position));
                     //ShowCourseInfoActivity.activityStart(getContext(),mAdapter.getCourse(position));
                 }

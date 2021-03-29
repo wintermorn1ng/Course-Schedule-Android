@@ -56,4 +56,14 @@ public class SharedPreferencesHelper {
         editor.putString("user_courses",null);
         editor.commit();
     }
+
+    public void setPictureList(String str){
+        editor.putString("picture_list",str);
+        editor.commit();
+    }
+    public String getPictureList(){
+        if(preferences.contains("picture_list"))
+            return preferences.getString("picture_list","");
+        return "";
+    }
 }
